@@ -4,6 +4,17 @@ A modern full-stack web app to track expenses, manage categories, and set monthl
 
 ---
 
+## 🚀 Live Demo
+
+- **Frontend:**
+  - [https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app/](https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app/)
+  - [https://fullstack-personal-finance-v-git-74de94-gourav-mondals-projects.vercel.app/](https://fullstack-personal-finance-v-git-74de94-gourav-mondals-projects.vercel.app/)
+  - [https://fullstack-personal-finance-vizualiz.vercel.app/](https://fullstack-personal-finance-vizualiz.vercel.app/)
+- **Backend API:**
+  - [https://fullstack-personal-finance-vizualizer.onrender.com](https://fullstack-personal-finance-vizualizer.onrender.com)
+
+---
+
 ## 🚀 Features
 
 ### Stage 1: Basic Transaction Tracking
@@ -68,19 +79,26 @@ assignment/
 
 ## ⚡ Quick Start
 
-### Prerequisites
+### Use the Live Demo
+
+- Visit the [live frontend](https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app/) and start tracking your finances instantly!
+- No setup required.
+
+### Local Development Setup
+
+#### Prerequisites
 
 - Node.js (v18+ recommended)
 - MongoDB (local or Atlas)
 
-### 1. Clone the repository
+#### 1. Clone the repository
 
 ```bash
 git clone <your-repo-url>
 cd assignment
 ```
 
-### 2. Setup the backend
+#### 2. Setup the backend
 
 ```bash
 cd server
@@ -88,14 +106,17 @@ npm install
 # Create a .env file with:
 # MONGODB_URI=<your-mongodb-uri>
 # PORT=5000 (optional)
+# Optionally, set ALLOWED_ORIGINS (comma-separated) for CORS
 npm run dev
 ```
 
-### 3. Setup the frontend
+#### 3. Setup the frontend
 
 ```bash
 cd ../client
 npm install
+# Optionally, create a .env file and set:
+# VITE_API_URL=https://fullstack-personal-finance-vizualizer.onrender.com/api
 npm run dev
 ```
 

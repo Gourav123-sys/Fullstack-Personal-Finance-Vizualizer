@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/budgets";
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://fullstack-personal-finance-vizualizer.onrender.com/api/budgets";
 
 export async function getBudgets(month) {
   const url = month ? `${API_URL}?month=${month}` : API_URL;

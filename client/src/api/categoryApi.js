@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/categories";
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://fullstack-personal-finance-vizualizer.onrender.com/api/categories";
 
 export async function getCategories() {
   const res = await fetch(API_URL);

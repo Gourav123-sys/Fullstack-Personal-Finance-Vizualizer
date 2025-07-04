@@ -4,7 +4,23 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  "https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app",
+  "https://fullstack-personal-finance-v-git-74de94-gourav-mondals-projects.vercel.app",
+  "https://fullstack-personal-finance-vizualiz.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Connect to MongoDB
