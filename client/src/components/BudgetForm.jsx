@@ -44,7 +44,7 @@ export default function BudgetForm({
       className="max-w-xl mx-auto space-y-6 p-8 bg-white rounded-2xl shadow border border-gray-200 flex flex-col"
     >
       <h2 className="text-2xl font-extrabold text-blue-600 mb-4 flex items-center gap-2 justify-center">
-        Set Budgets for {month}
+        🎯 Set Budgets for {month}
       </h2>
       {error && (
         <div className="text-red-500 text-center font-bold">{error}</div>
@@ -61,7 +61,10 @@ export default function BudgetForm({
         >
           <label className="w-32 font-bold text-lg text-gray-700 flex items-center gap-2 min-w-0 break-words">
             {cat.name}{" "}
-            <span className="w-5 h-5 rounded-full border border-gray-300 inline-block" style={{ background: cat.color }}></span>
+            <span
+              className="w-5 h-5 rounded-full border border-gray-300 inline-block"
+              style={{ background: cat.color }}
+            ></span>
           </label>
           <input
             type="number"
@@ -69,7 +72,7 @@ export default function BudgetForm({
             onChange={(e) => handleChange(cat._id, e.target.value)}
             className="input input-bordered w-full xs:w-32 text-lg rounded-lg px-4 py-2 border border-gray-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-400 bg-white placeholder-gray-400 min-w-0 break-words"
             min="0"
-            placeholder="e.g. 500"
+            placeholder="e.g. 5000"
           />
         </div>
       ))}

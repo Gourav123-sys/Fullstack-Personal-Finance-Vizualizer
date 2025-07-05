@@ -15,6 +15,16 @@ export default function DashboardSummary({ transactions, categories }) {
     .filter((c) => c.total > 0)
     .sort((a, b) => b.total - a.total);
 
+  // Format amount in Indian Rupees
+  const formatRupees = (amount) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Total Expenses Card */}
@@ -30,7 +40,7 @@ export default function DashboardSummary({ transactions, categories }) {
           </div>
           <div className="text-center">
             <div className="text-4xl font-extrabold text-white mb-2">
-              ${total.toLocaleString()}
+              {formatRupees(total)}
             </div>
             <p className="text-blue-100 text-sm">Sum of all transactions</p>
           </div>
@@ -69,7 +79,7 @@ export default function DashboardSummary({ transactions, categories }) {
                   </span>
                 </div>
                 <span className="font-bold text-blue-600">
-                  ${cat.total.toLocaleString()}
+                  {formatRupees(cat.total)}
                 </span>
               </div>
             ))
@@ -103,7 +113,7 @@ export default function DashboardSummary({ transactions, categories }) {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-bold text-lg text-blue-600">
-                      ${tx.amount.toLocaleString()}
+                      {formatRupees(tx.amount)}
                     </span>
                     <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
                       {new Date(tx.date).toLocaleDateString()}

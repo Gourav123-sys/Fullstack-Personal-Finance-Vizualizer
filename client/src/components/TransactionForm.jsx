@@ -60,20 +60,20 @@ export default function TransactionForm({
           {/* Amount Field */}
           <div className="space-y-2">
             <label className="block text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <span className="text-blue-500">💵</span>
+              <span className="text-green-500">₹</span>
               Amount
             </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-bold">
-                $
+                ₹
               </span>
               <input
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 className="w-full pl-8 pr-4 py-3 text-lg rounded-xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-100 focus:border-blue-400 bg-white placeholder-gray-400 transition-all duration-200"
-                placeholder="0.00"
-                step="0.01"
+                placeholder="0"
+                step="1"
                 min="0"
               />
             </div>

@@ -1,4 +1,14 @@
 export default function TransactionList({ transactions, onEdit, onDelete }) {
+  // Format amount in Indian Rupees
+  const formatRupees = (amount) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
   if (!transactions.length)
     return (
       <div className="text-gray-400 text-center text-lg mt-4">
@@ -14,7 +24,7 @@ export default function TransactionList({ transactions, onEdit, onDelete }) {
         >
           <div className="min-w-0 break-words">
             <div className="font-extrabold text-2xl text-blue-600 flex items-center gap-2 min-w-0 break-words">
-              ${tx.amount}
+              {formatRupees(tx.amount)}
             </div>
             <div className="text-lg text-gray-800 mt-1 min-w-0 break-words">
               {new Date(tx.date).toLocaleDateString()} —{" "}

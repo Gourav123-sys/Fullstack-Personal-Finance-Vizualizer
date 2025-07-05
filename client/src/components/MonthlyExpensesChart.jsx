@@ -8,6 +8,16 @@ import {
 } from "recharts";
 
 export default function MonthlyExpensesChart({ transactions }) {
+  // Format amount in Indian Rupees for tooltip
+  const formatRupees = (amount) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
   // Group by month
   const data = transactions.reduce((acc, tx) => {
     const month = new Date(tx.date).toLocaleString("default", {
@@ -29,7 +39,7 @@ export default function MonthlyExpensesChart({ transactions }) {
         <BarChart data={data}>
           <XAxis dataKey="month" />
           <YAxis />
-          <Tooltip />
+          <Tooltip formatter={(value) => formatRupees(value)} />
           <Bar dataKey="total" fill="#3b82f6" />
         </BarChart>
       </ResponsiveContainer>

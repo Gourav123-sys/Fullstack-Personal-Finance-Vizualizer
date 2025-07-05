@@ -14,6 +14,16 @@ export default function BudgetVsActualChart({
   transactions,
   month,
 }) {
+  // Format amount in Indian Rupees for tooltip
+  const formatRupees = (amount) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
   // Calculate actual spending per category for the month
   const actuals = categories
     .map((cat) => {
@@ -37,7 +47,7 @@ export default function BudgetVsActualChart({
         <BarChart data={actuals}>
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip formatter={(value) => formatRupees(value)} />
           <Legend />
           <Bar dataKey="budget" fill="#8884d8" name="Budget" />
           <Bar dataKey="actual" fill="#3b82f6" name="Actual" />

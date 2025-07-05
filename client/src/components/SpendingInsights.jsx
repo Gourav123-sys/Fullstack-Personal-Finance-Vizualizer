@@ -4,6 +4,16 @@ export default function SpendingInsights({
   transactions,
   month,
 }) {
+  // Format amount in Indian Rupees
+  const formatRupees = (amount) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
   // Calculate actual spending per category for the month
   const insights = categories
     .map((cat) => {
@@ -29,7 +39,7 @@ export default function SpendingInsights({
   return (
     <div className="p-4 sm:p-6 rounded-lg shadow border border-gray-200 bg-white mb-6">
       <h2 className="text-xl font-extrabold mb-2 text-blue-600 flex items-center gap-2">
-        Spending Insights for {month}
+        💡 Spending Insights for {month}
       </h2>
       {overBudget.length === 0 && underBudget.length === 0 && (
         <div>No budgets set for this month.</div>
@@ -40,7 +50,7 @@ export default function SpendingInsights({
           <ul>
             {overBudget.map((i) => (
               <li key={i.name}>
-                {i.name}: Over by ${i.actual - i.budget}
+                {i.name}: Over by {formatRupees(i.actual - i.budget)}
               </li>
             ))}
           </ul>
@@ -52,7 +62,7 @@ export default function SpendingInsights({
           <ul>
             {underBudget.map((i) => (
               <li key={i.name}>
-                {i.name}: ${i.budget - i.actual} left
+                {i.name}: {formatRupees(i.budget - i.actual)} left
               </li>
             ))}
           </ul>
