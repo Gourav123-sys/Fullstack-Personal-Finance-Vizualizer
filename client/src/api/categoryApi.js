@@ -1,6 +1,7 @@
-const API_URL =
+const BASE_URL =
   import.meta.env.VITE_API_URL ||
-  "https://fullstack-personal-finance-vizualizer.onrender.com/api/categories";
+  "https://fullstack-personal-finance-vizualizer.onrender.com";
+const API_URL = `${BASE_URL}/api/categories`;
 
 export async function getCategories() {
   const res = await fetch(API_URL);
