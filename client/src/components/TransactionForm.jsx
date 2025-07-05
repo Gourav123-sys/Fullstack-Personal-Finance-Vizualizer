@@ -33,68 +33,104 @@ export default function TransactionForm({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-md mx-auto space-y-5 p-8 bg-white rounded-lg shadow border border-gray-200 flex flex-col"
-    >
-      <h2 className="text-2xl font-extrabold text-blue-700 mb-4 flex items-center gap-2 justify-center">
-        {submitLabel}
-      </h2>
-      {error && (
-        <div className="text-red-500 text-center font-bold">{error}</div>
-      )}
-      <div>
-        <label className="block mb-2 font-bold text-lg text-gray-700">
-          Amount
-        </label>
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="input input-bordered w-full text-lg rounded-lg px-6 py-3 border border-gray-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-400 bg-white placeholder-gray-400"
-          placeholder="e.g. 1000"
-        />
-      </div>
-      <div>
-        <label className="block mb-2 font-bold text-lg text-gray-700">
-          Date
-        </label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="input input-bordered w-full text-lg rounded-lg px-6 py-3 border border-gray-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-400 bg-white placeholder-gray-400"
-          placeholder="Pick a date"
-        />
-      </div>
-      <div>
-        <label className="block mb-2 font-bold text-lg text-gray-700">
-          Description
-        </label>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="input input-bordered w-full text-lg rounded-lg px-6 py-3 border border-gray-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-400 bg-white placeholder-gray-400"
-          placeholder="e.g. Candy, Toys, Rent..."
-        />
-      </div>
-      <div>
-        <label className="block mb-2 font-bold text-lg text-gray-700">
-          Category
-        </label>
-        <CategorySelect
-          categories={categories}
-          value={category}
-          onChange={setCategory}
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full py-3 mt-2 rounded-lg bg-blue-600 text-white text-xl font-bold shadow hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
+    <div className="max-w-md mx-auto">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 hover:shadow-2xl transition-all duration-300"
       >
-        {submitLabel}
-      </button>
-    </form>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-4">
+            <span className="text-2xl text-white">💰</span>
+          </div>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            {submitLabel}
+          </h2>
+        </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-center font-medium">
+            ⚠️ {error}
+          </div>
+        )}
+
+        {/* Form Fields */}
+        <div className="space-y-6">
+          {/* Amount Field */}
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <span className="text-blue-500">💵</span>
+              Amount
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-bold">
+                $
+              </span>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="w-full pl-8 pr-4 py-3 text-lg rounded-xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-100 focus:border-blue-400 bg-white placeholder-gray-400 transition-all duration-200"
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+              />
+            </div>
+          </div>
+
+          {/* Date Field */}
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <span className="text-green-500">📅</span>
+              Date
+            </label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full px-4 py-3 text-lg rounded-xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-100 focus:border-blue-400 bg-white transition-all duration-200"
+            />
+          </div>
+
+          {/* Description Field */}
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <span className="text-purple-500">📝</span>
+              Description
+            </label>
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full px-4 py-3 text-lg rounded-xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-100 focus:border-blue-400 bg-white placeholder-gray-400 transition-all duration-200"
+              placeholder="e.g. Groceries, Rent, Entertainment..."
+            />
+          </div>
+
+          {/* Category Field */}
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <span className="text-orange-500">🏷️</span>
+              Category
+            </label>
+            <CategorySelect
+              categories={categories}
+              value={category}
+              onChange={setCategory}
+            />
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full mt-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-bold shadow-lg hover:from-blue-700 hover:to-purple-700 hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2"
+        >
+          <span className="text-xl">✨</span>
+          {submitLabel}
+        </button>
+      </form>
+    </div>
   );
 }
