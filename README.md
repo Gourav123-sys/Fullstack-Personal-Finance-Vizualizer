@@ -221,12 +221,6 @@ personal-finance-visualizer/
 3. Set start command: `npm start`
 4. Add environment variables
 
-### Environment Variables
-
-```env
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
-PORT=5000
-```
 
 ## 🤝 Contributing
 
