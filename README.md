@@ -1,152 +1,264 @@
-# Personal Finance Visualizer
+# 💼 Personal Finance Visualizer
 
-A modern full-stack web app to track expenses, manage categories, and set monthly budgets. Visualize your spending with interactive charts and a clean, responsive dashboard. Built with React, Express.js, and MongoDB.
+A modern, full-stack web application for tracking personal expenses, setting budgets, and visualizing financial data with beautiful charts and insights. Built with the MERN stack and designed specifically for Indian users with Rupee (₹) support.
 
----
+![Personal Finance Visualizer](https://img.shields.io/badge/Personal%20Finance-Visualizer-blue?style=for-the-badge&logo=react)
+![MERN Stack](https://img.shields.io/badge/MERN-Stack-green?style=for-the-badge&logo=mongodb)
+![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)
 
-## 🚀 Live Demo
+## 🌟 Live Demo
 
-- **Frontend:**
-  - [https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app/](https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app/)
-  - [https://fullstack-personal-finance-v-git-74de94-gourav-mondals-projects.vercel.app/](https://fullstack-personal-finance-v-git-74de94-gourav-mondals-projects.vercel.app/)
-  - [https://fullstack-personal-finance-vizualiz.vercel.app/](https://fullstack-personal-finance-vizualiz.vercel.app/)
-- **Backend API:**
-  - [https://fullstack-personal-finance-vizualizer.onrender.com](https://fullstack-personal-finance-vizualizer.onrender.com)
+- **Frontend**: [https://personal-finance-visualizer.vercel.app](https://personal-finance-visualizer.vercel.app)
+- **Backend API**: [https://fullstack-personal-finance-vizualizer.onrender.com](https://fullstack-personal-finance-vizualizer.onrender.com)
 
----
+## ✨ Features
 
-## 🚀 Features
+### 📊 **Dashboard & Analytics**
 
-### Stage 1: Basic Transaction Tracking
+- **Real-time Expense Tracking** - Monitor your spending with live updates
+- **Interactive Charts** - Beautiful visualizations using Recharts
+- **Monthly Expense Trends** - Track spending patterns over time
+- **Category Breakdown** - Pie charts showing spending distribution
+- **Budget vs Actual** - Compare planned vs actual spending
 
-- Add, edit, and delete transactions (amount, date, description, category)
-- Transaction list view with edit/delete actions
-- Monthly expenses bar chart
-- Basic form validation and error handling
+### 💰 **Transaction Management**
 
-### Stage 2: Categories
+- **Add/Edit/Delete Transactions** - Full CRUD operations
+- **Category-based Organization** - Organize expenses by categories
+- **Date-based Filtering** - Filter transactions by month
+- **Search & Filter** - Find specific transactions easily
+- **Bulk Operations** - Manage multiple transactions efficiently
 
-- Predefined and custom categories for transactions
-- Category-wise pie chart
-- Dashboard with summary cards: total expenses, category breakdown, recent transactions
+### 🎯 **Budget Planning**
 
-### Stage 3: Budgeting
+- **Monthly Budget Setting** - Set budgets for each category
+- **Budget Tracking** - Monitor spending against budgets
+- **Over-budget Alerts** - Get notified when exceeding limits
+- **Budget Insights** - Detailed analysis of budget performance
 
-- Set monthly budgets per category
-- Budget vs. actual comparison chart
-- Simple spending insights (over/under budget)
+### 🏷️ **Category Management**
 
-### General
+- **Custom Categories** - Create personalized expense categories
+- **Color-coded Categories** - Visual distinction with custom colors
+- **Category-wise Analysis** - Detailed spending by category
 
-- Professional, responsive UI/UX
-- Accessible and mobile-friendly
-- Toast notifications and clear feedback
+### 🇮🇳 **Indian Localization**
 
----
+- **Rupee (₹) Support** - Native Indian currency formatting
+- **Indian Number System** - Lakhs and Crores formatting
+- **Localized UI** - Designed for Indian users
+
+### 📱 **Responsive Design**
+
+- **Mobile-First** - Works perfectly on all devices
+- **Modern UI/UX** - Beautiful gradient designs and animations
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React (Vite), Tailwind CSS, Recharts, React Router
-- **Backend:** Node.js, Express.js, Mongoose, MongoDB, CORS, dotenv
-- **Dev Tools:** ESLint, Nodemon
+### **Frontend**
 
----
+- **React 19** - Latest React with modern features
+- **React Router DOM** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
+- **Recharts** - Beautiful chart library
+- **React Hot Toast** - Elegant notifications
+- **Vite** - Fast build tool and dev server
 
-## 📁 Folder Structure
+### **Backend**
 
-```
-assignment/
-  client/      # React frontend (Vite, Tailwind, Recharts)
-    src/
-      api/         # API helpers
-      components/  # Reusable UI components
-      pages/       # App pages (Dashboard, Transactions, Budgets, Categories)
-      index.css
-      main.jsx
-    package.json
-    ...
-  server/      # Node.js/Express backend
-    models/    # Mongoose models (Transaction, Category, Budget)
-    routes/    # Express routes (transactions, categories, budgets)
-    server.js  # Main server entry
-    package.json
-    ...
-  README.md    # Project documentation
-  .gitignore   # Git ignore rules
-```
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
+- **CORS** - Cross-origin resource sharing
 
----
+### **Deployment**
 
-## ⚡ Quick Start
+- **Vercel** - Frontend hosting
+- **Render** - Backend hosting
+- **MongoDB Atlas** - Cloud database
 
-### Use the Live Demo
+### **Development Tools**
 
-- Visit the [live frontend](https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app/) and start tracking your finances instantly!
-- No setup required.
+- **Git** - Version control
+- **ESLint** - Code linting
+- **Postman** - API testing
 
-### Local Development Setup
+## 🚀 Quick Start
 
-#### Prerequisites
+### Prerequisites
 
-- Node.js (v18+ recommended)
+- Node.js (v16 or higher)
+- npm or yarn
 - MongoDB (local or Atlas)
 
-#### 1. Clone the repository
+### Installation
 
-```bash
-git clone <your-repo-url>
-cd assignment
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Gourav123-sys/personal-finance-visualizer.git
+   cd personal-finance-visualizer
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   # Install backend dependencies
+   cd server
+   npm install
+
+   # Install frontend dependencies
+   cd ../client
+   npm install
+   ```
+
+3. **Environment Setup**
+
+   Create `.env` file in the server directory:
+
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   PORT=5000
+   ```
+
+4. **Run the application**
+
+   ```bash
+   # Start backend server (from server directory)
+   npm start
+
+   # Start frontend development server (from client directory)
+   npm run dev
+   ```
+
+5. **Access the application**
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:5000
+
+## 📁 Project Structure
+
+```
+personal-finance-visualizer/
+├── client/                 # Frontend React application
+│   ├── public/            # Static files
+│   ├── src/
+│   │   ├── api/           # API service functions
+│   │   ├── components/    # Reusable React components
+│   │   ├── pages/         # Page components
+│   │   ├── App.jsx        # Main app component
+│   │   └── main.jsx       # App entry point
+│   ├── package.json       # Frontend dependencies
+│   └── vite.config.js     # Vite configuration
+├── server/                # Backend Node.js application
+│   ├── models/            # MongoDB schemas
+│   ├── routes/            # API routes
+│   ├── server.js          # Express server setup
+│   └── package.json       # Backend dependencies
+└── README.md              # Project documentation
 ```
 
-#### 2. Setup the backend
+## 🔧 API Endpoints
 
-```bash
-cd server
-npm install
-# Create a .env file with:
-# MONGODB_URI=<your-mongodb-uri>
-# PORT=5000 (optional)
-# Optionally, set ALLOWED_ORIGINS (comma-separated) for CORS
-npm run dev
+### Transactions
+
+- `GET /api/transactions` - Get all transactions
+- `POST /api/transactions` - Create new transaction
+- `PUT /api/transactions/:id` - Update transaction
+- `DELETE /api/transactions/:id` - Delete transaction
+
+### Categories
+
+- `GET /api/categories` - Get all categories
+- `POST /api/categories` - Create new category
+- `DELETE /api/categories/:id` - Delete category
+
+### Budgets
+
+- `GET /api/budgets?month=YYYY-MM` - Get budgets for month
+- `POST /api/budgets` - Set budget for category
+
+## 🎨 UI Components
+
+### Core Components
+
+- **DashboardSummary** - Overview cards with key metrics
+- **TransactionForm** - Add/edit transaction form
+- **TransactionList** - Display list of transactions
+- **CategoryPieChart** - Spending distribution chart
+- **MonthlyExpensesChart** - Monthly spending trends
+- **BudgetVsActualChart** - Budget comparison chart
+- **SpendingInsights** - Budget analysis and insights
+
+### Features
+
+- **Responsive Design** - Works on all screen sizes
+- **Modern Animations** - Smooth transitions and hover effects
+- **Gradient Backgrounds** - Beautiful visual design
+- **Interactive Charts** - Hover effects and tooltips
+- **Loading States** - User-friendly loading indicators
+
+## 🔒 Security Features
+
+- **CORS Configuration** - Secure cross-origin requests
+- **Input Validation** - Server-side data validation
+- **Error Handling** - Comprehensive error management
+- **Environment Variables** - Secure configuration management
+
+## 🚀 Deployment
+
+### Frontend (Vercel)
+
+1. Connect your GitHub repository to Vercel
+2. Set build command: `npm run build`
+3. Set output directory: `dist`
+4. Deploy automatically on push
+
+### Backend (Render)
+
+1. Connect your GitHub repository to Render
+2. Set build command: `npm install`
+3. Set start command: `npm start`
+4. Add environment variables
+
+### Environment Variables
+
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
+PORT=5000
 ```
-
-#### 3. Setup the frontend
-
-```bash
-cd ../client
-npm install
-# Optionally, create a .env file and set:
-# VITE_API_URL=https://fullstack-personal-finance-vizualizer.onrender.com/api
-npm run dev
-```
-
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
-
----
-
-## 🖥️ Usage
-
-- Open the app in your browser
-- Add, edit, and delete transactions
-- Create and manage categories
-- Set monthly budgets and compare with actual spending
-- Visualize your finances with interactive charts and summary cards
-
----
-
-## 📸 Screenshots
-
-<!-- Add screenshots here -->
-
----
 
 ## 🤝 Contributing
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 👨‍💻 Author
+
+**Gourav Mondal**
+
+- GitHub: [@Gourav123-sys](https://github.com/Gourav123-sys)
+- LinkedIn: [Gourav Mondal](https://www.linkedin.com/in/gourav-mondal-55a812204/)
+- Email: gouravmondal30june2002@gmail.com
+
+## 🙏 Acknowledgments
+
+- **React Team** - For the amazing framework
+- **Tailwind CSS** - For the utility-first CSS framework
+- **Recharts** - For the beautiful chart library
+- **Vercel & Render** - For the hosting platforms
+- **MongoDB** - For the database solution
+
+## 📊 Project Stats
+
+![GitHub stars](https://img.shields.io/github/stars/Gourav123-sys/personal-finance-visualizer?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Gourav123-sys/personal-finance-visualizer?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Gourav123-sys/personal-finance-visualizer)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Gourav123-sys/personal-finance-visualizer)
 
 ---
 
-## 🙋‍♂️ Contact
-
-For questions or feedback, open an issue or contact the maintainer.
+⭐ **Star this repository if you found it helpful!**
