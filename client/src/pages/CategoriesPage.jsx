@@ -35,8 +35,6 @@ export default function CategoriesPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this category?"))
-      return;
     try {
       await deleteCategory(id);
       fetchData();

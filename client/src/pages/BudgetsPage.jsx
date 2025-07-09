@@ -222,7 +222,7 @@ export default function BudgetsPage() {
                                   </button>
                                   <button
                                     className="px-3 py-1 rounded bg-red-100 text-red-700 font-semibold hover:bg-red-200 transition"
-                                    onClick={() => setDeletingId(b._id)}
+                                    onClick={() => handleDeleteBudget(b._id)}
                                   >
                                     Delete
                                   </button>
@@ -238,31 +238,6 @@ export default function BudgetsPage() {
               </div>
             ))}
         </div>
-        {/* Delete confirmation modal */}
-        {deletingId && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-white/30">
-            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full flex flex-col items-center">
-              <div className="text-3xl mb-2">⚠️</div>
-              <div className="text-lg font-bold mb-4 text-gray-800 text-center">
-                Are you sure you want to delete this budget?
-              </div>
-              <div className="flex gap-4 mt-2">
-                <button
-                  className="px-5 py-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition"
-                  onClick={() => handleDeleteBudget(deletingId)}
-                >
-                  Delete
-                </button>
-                <button
-                  className="px-5 py-2 rounded-xl bg-gray-200 text-gray-700 font-bold hover:bg-gray-300 transition"
-                  onClick={() => setDeletingId(null)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
       <div className="rounded-2xl shadow border border-gray-200 bg-white p-4 sm:p-8 min-w-0 break-words">
         <SpendingInsights
