@@ -28,3 +28,27 @@ export async function setBudget(data) {
   if (!res.ok) throw new Error("Failed to set budget");
   return res.json();
 }
+
+export async function updateBudget(id, amount) {
+  const token = getToken();
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ amount }),
+  });
+  if (!res.ok) throw new Error("Failed to update budget");
+  return res.json();
+}
+
+export async function deleteBudget(id) {
+  const token = getToken();
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error("Failed to delete budget");
+  return res.json();
+}

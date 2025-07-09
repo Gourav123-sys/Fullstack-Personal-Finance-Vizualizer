@@ -34,4 +34,35 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
+// Update a budget by _id (user-specific)
+router.put("/:id", authMiddleware, async (req, res) => {
+  try {
+    const { amount } = req.body;
+    if (!amount) return res.status(400).json({ error: "Amount is required" });
+    const budget = await Budget.findOneAndUpdate(
+      { _id: req.params.id, user: req.userId },
+      { amount },
+      { new: true }
+    );
+    if (!budget) return res.status(404).json({ error: "Budget not found" });
+    res.json(budget);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Delete a budget by _id (user-specific)
+router.delete("/:id", authMiddleware, async (req, res) => {
+  try {
+    const budget = await Budget.findOneAndDelete({
+      _id: req.params.id,
+      user: req.userId,
+    });
+    if (!budget) return res.status(404).json({ error: "Budget not found" });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 module.exports = router;

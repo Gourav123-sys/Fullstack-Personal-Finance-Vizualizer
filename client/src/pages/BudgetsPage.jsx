@@ -3,7 +3,12 @@ import BudgetForm from "../components/BudgetForm";
 import BudgetVsActualChart from "../components/BudgetVsActualChart";
 import SpendingInsights from "../components/SpendingInsights";
 import { getCategories } from "../api/categoryApi";
-import { getBudgets, setBudget } from "../api/budgetApi";
+import {
+  getBudgets,
+  setBudget,
+  updateBudget,
+  deleteBudget,
+} from "../api/budgetApi";
 import { getTransactions } from "../api/transactionApi";
 import toast from "react-hot-toast";
 
@@ -19,6 +24,9 @@ export default function BudgetsPage() {
   const [month, setMonth] = useState(getCurrentMonth());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [editingBudget, setEditingBudget] = useState(null);
+  const [editAmount, setEditAmount] = useState("");
+  const [deletingId, setDeletingId] = useState(null);
 
   const fetchData = async () => {
     setLoading(true);
@@ -53,6 +61,34 @@ export default function BudgetsPage() {
     }
   };
 
+  const handleEditBudget = (budget) => {
+    setEditingBudget(budget);
+    setEditAmount(budget.amount);
+  };
+
+  const handleUpdateBudget = async () => {
+    try {
+      await updateBudget(editingBudget._id, Number(editAmount));
+      setEditingBudget(null);
+      setEditAmount("");
+      fetchData();
+      toast.success("Budget updated!");
+    } catch {
+      toast.error("Failed to update budget");
+    }
+  };
+
+  const handleDeleteBudget = async (id) => {
+    try {
+      await deleteBudget(id);
+      setDeletingId(null);
+      fetchData();
+      toast.success("Budget deleted!");
+    } catch {
+      toast.error("Failed to delete budget");
+    }
+  };
+
   return (
     <div className="space-y-8 min-w-0 break-words">
       <div className="flex flex-col md:flex-row md:items-center gap-4 mb-2 min-w-0 break-words flex-wrap">
@@ -83,6 +119,124 @@ export default function BudgetsPage() {
           month={month}
           onSetBudget={handleSetBudget}
         />
+
+        {/* List all budgets for the user for this month */}
+        <h3 className="text-xl font-bold mt-10 mb-4 text-blue-700 flex items-center gap-2">
+          <span>📋</span> Your Budgets for {month}
+        </h3>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-xl shadow border border-gray-100">
+            <thead>
+              <tr className="bg-gradient-to-r from-blue-50 to-purple-50">
+                <th className="px-4 py-2 text-left text-sm font-bold text-gray-700">
+                  Category
+                </th>
+                <th className="px-4 py-2 text-left text-sm font-bold text-gray-700">
+                  Amount
+                </th>
+                <th className="px-4 py-2 text-sm font-bold text-gray-700">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {budgets.length === 0 && (
+                <tr>
+                  <td colSpan={3} className="text-center text-gray-400 py-6">
+                    No budgets set for this month.
+                  </td>
+                </tr>
+              )}
+              {budgets.map((b) => (
+                <tr
+                  key={b._id}
+                  className="border-b border-gray-100 hover:bg-blue-50 transition"
+                >
+                  <td className="px-4 py-2 flex items-center gap-2">
+                    <span
+                      className="w-4 h-4 rounded-full border border-gray-300 inline-block"
+                      style={{ background: b.category.color }}
+                    ></span>
+                    <span className="font-medium text-gray-800">
+                      {b.category.name}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 font-bold text-blue-700 text-lg">
+                    {editingBudget && editingBudget._id === b._id ? (
+                      <input
+                        type="number"
+                        value={editAmount}
+                        onChange={(e) => setEditAmount(e.target.value)}
+                        className="w-24 px-2 py-1 rounded border border-blue-300 focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                        min="0"
+                      />
+                    ) : (
+                      b.amount
+                    )}
+                  </td>
+                  <td className="px-4 py-2 flex gap-2">
+                    {editingBudget && editingBudget._id === b._id ? (
+                      <>
+                        <button
+                          className="px-3 py-1 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+                          onClick={handleUpdateBudget}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="px-3 py-1 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition"
+                          onClick={() => setEditingBudget(null)}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="px-3 py-1 rounded bg-purple-100 text-purple-700 font-semibold hover:bg-purple-200 transition"
+                          onClick={() => handleEditBudget(b)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="px-3 py-1 rounded bg-red-100 text-red-700 font-semibold hover:bg-red-200 transition"
+                          onClick={() => setDeletingId(b._id)}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* Delete confirmation modal */}
+        {deletingId && (
+          <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full flex flex-col items-center">
+              <div className="text-3xl mb-2">⚠️</div>
+              <div className="text-lg font-bold mb-4 text-gray-800 text-center">
+                Are you sure you want to delete this budget?
+              </div>
+              <div className="flex gap-4 mt-2">
+                <button
+                  className="px-5 py-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition"
+                  onClick={() => handleDeleteBudget(deletingId)}
+                >
+                  Delete
+                </button>
+                <button
+                  className="px-5 py-2 rounded-xl bg-gray-200 text-gray-700 font-bold hover:bg-gray-300 transition"
+                  onClick={() => setDeletingId(null)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className="rounded-2xl shadow border border-gray-200 bg-white p-4 sm:p-8 min-w-0 break-words">
         <SpendingInsights
