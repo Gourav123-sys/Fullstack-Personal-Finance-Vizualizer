@@ -8,7 +8,12 @@ export default function DashboardSummary({ transactions, categories }) {
     .map((cat) => ({
       name: cat.name,
       total: transactions
-        .filter((tx) => tx.category && tx.category._id === cat._id)
+        .filter(
+          (tx) =>
+            tx.category &&
+            typeof tx.category === "object" &&
+            tx.category._id === cat._id
+        )
         .reduce((sum, tx) => sum + tx.amount, 0),
       color: cat.color,
     }))
@@ -105,7 +110,10 @@ export default function DashboardSummary({ transactions, categories }) {
             </div>
           ) : (
             recent.map((tx) => {
-              const cat = tx.category && categoryMap[tx.category._id];
+              const cat =
+                tx.category &&
+                typeof tx.category === "object" &&
+                categoryMap[tx.category._id];
               return (
                 <div
                   key={tx._id}
