@@ -68,7 +68,7 @@ A modern, full-stack web application for tracking personal expenses, setting bud
 
 ### 💰 **Transaction Management**
 
-- **Add/Edit/Delete Transactions** - Full CRUD operations
+- **Add/Edit/Delete Transactions** - Full CRUD operations, all actions are instant (no confirmation modals)
 - **Category-based Organization** - Organize expenses by categories
 - **Date-based Filtering** - Filter transactions by month
 - **Search & Filter** - Find specific transactions easily
@@ -80,12 +80,14 @@ A modern, full-stack web application for tracking personal expenses, setting bud
 - **Budget Tracking** - Monitor spending against budgets
 - **Over-budget Alerts** - Get notified when exceeding limits
 - **Budget Insights** - Detailed analysis of budget performance
+- **View, Edit, and Delete All Budgets** - See all your budgets grouped by month/year in a responsive, scrollable table. Edit or delete instantly with no confirmation required.
 
 ### 🏷️ **Category Management**
 
 - **Custom Categories** - Create personalized expense categories
 - **Color-coded Categories** - Visual distinction with custom colors
 - **Category-wise Analysis** - Detailed spending by category
+- **Instant Delete** - Delete categories instantly (no confirmation modal)
 
 ### 🇮🇳 **Indian Localization**
 
@@ -315,3 +317,9 @@ personal-finance-visualizer/
 ---
 
 ⭐ **Star this repository if you found it helpful!**
+
+## 📝 Notes & UI Consistency
+
+- **All delete and edit actions are instant** for budgets, transactions, and categories—no confirmation modals or alerts, for a fast and consistent user experience.
+- **Budgets are grouped by month and year** in a scrollable, responsive table for easy management.
+- **All tables and modals** are fully responsive and match the app's modern, gradient-themed design.
