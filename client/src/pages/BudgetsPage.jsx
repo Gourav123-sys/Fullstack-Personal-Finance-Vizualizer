@@ -240,7 +240,7 @@ export default function BudgetsPage() {
         </div>
         {/* Delete confirmation modal */}
         {deletingId && (
-          <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+          <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-white/30">
             <div className="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full flex flex-col items-center">
               <div className="text-3xl mb-2">⚠️</div>
               <div className="text-lg font-bold mb-4 text-gray-800 text-center">
