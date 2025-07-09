@@ -16,7 +16,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { useAuth } from "./AuthContext";
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaChevronDown } from "react-icons/fa";
 
 function RequireAuth({ children }) {
   const { user, loading } = useAuth();
@@ -29,6 +29,7 @@ function RequireAuth({ children }) {
 function NavBar() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const navLinks = [
     { to: "/dashboard", label: "Dashboard", icon: "📊" },
@@ -77,33 +78,58 @@ function NavBar() {
                   {link.label}
                 </Link>
               ))}
-              {/* Account Preview - Redesigned */}
-              <div className="ml-6 flex items-center gap-3 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm hover:shadow-lg transition-all min-w-[0] max-w-xs">
-                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-xl font-bold">
-                  <FaUserCircle />
-                </div>
-                <div className="flex flex-col min-w-0">
+              {/* Account Dropdown - Desktop */}
+              <div className="relative ml-6">
+                <button
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm hover:shadow-lg transition-all min-w-[0] max-w-xs focus:outline-none"
+                  onClick={() => setUserMenuOpen((v) => !v)}
+                  aria-haspopup="true"
+                  aria-expanded={userMenuOpen}
+                >
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-xl font-bold">
+                    <FaUserCircle />
+                  </div>
                   <span
-                    className="text-gray-900 font-semibold text-sm truncate max-w-[100px]"
+                    className="text-gray-900 font-semibold text-sm truncate max-w-[80px]"
                     title={user.name}
                   >
                     {user.name}
                   </span>
-                  <span
-                    className="text-xs text-gray-500 truncate max-w-[100px]"
-                    title={user.email}
-                  >
-                    {user.email}
-                  </span>
-                </div>
-                <button
-                  onClick={logout}
-                  className="ml-2 flex items-center gap-1 px-2 py-1 rounded-lg bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-xs shadow-sm"
-                  title="Logout"
-                >
-                  <FaSignOutAlt className="text-base" />
-                  <span className="hidden sm:inline">Logout</span>
+                  <FaChevronDown
+                    className={`text-gray-500 text-base transition-transform ${
+                      userMenuOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  />
                 </button>
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-blue-100 z-50 animate-fade-in-up">
+                    <div className="flex flex-col items-center gap-2 p-5">
+                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-3xl font-bold mb-2">
+                        <FaUserCircle />
+                      </div>
+                      <span
+                        className="text-gray-900 font-semibold text-lg truncate w-full text-center"
+                        title={user.name}
+                      >
+                        {user.name}
+                      </span>
+                      <span
+                        className="text-xs text-gray-500 truncate w-full text-center"
+                        title={user.email}
+                      >
+                        {user.email}
+                      </span>
+                      <button
+                        onClick={logout}
+                        className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-sm shadow-sm w-full justify-center"
+                        title="Logout"
+                      >
+                        <FaSignOutAlt className="text-base" />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </>
           ) : (
@@ -147,7 +173,7 @@ function NavBar() {
                     {link.label}
                   </Link>
                 ))}
-                {/* Account Preview Mobile - Redesigned */}
+                {/* Account Card - Mobile */}
                 <div className="flex flex-col items-center gap-2 mt-4 px-4 py-3 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm w-full">
                   <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-2xl font-bold mb-1">
                     <FaUserCircle />
@@ -166,7 +192,7 @@ function NavBar() {
                   </span>
                   <button
                     onClick={logout}
-                    className="mt-2 flex items-center gap-1 px-3 py-1 rounded-lg bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-sm shadow-sm"
+                    className="mt-2 flex items-center gap-1 px-3 py-1 rounded-lg bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-sm shadow-sm w-full justify-center"
                     title="Logout"
                   >
                     <FaSignOutAlt className="text-base" />
