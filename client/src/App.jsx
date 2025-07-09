@@ -52,7 +52,7 @@ function NavBar() {
         </div>
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden flex items-center px-3 py-2 border rounded-lg text-gray-700 border-gray-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+          className="max-[1100px]:flex hidden items-center px-3 py-2 border rounded-lg text-gray-700 border-gray-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={
             menuOpen ? "Close navigation menu" : "Open navigation menu"
@@ -61,7 +61,7 @@ function NavBar() {
           <span className="text-xl">{menuOpen ? "✖" : "☰"}</span>
         </button>
         {/* Desktop Navigation - Right Side */}
-        <div className="hidden md:flex items-center min-w-0 gap-2 flex-nowrap">
+        <div className="hidden max-[1100px]:flex max-[1100px]:hidden items-center min-w-0 gap-2 flex-nowrap">
           {user ? (
             <>
               <div className="flex items-center gap-2 min-w-0 flex-nowrap">
@@ -154,7 +154,7 @@ function NavBar() {
         </div>
         {/* Mobile Navigation Menu */}
         <div
-          className={`md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-sm shadow-xl border-b border-gray-100 transition-all duration-300 ${
+          className={`max-[1100px]:block hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-sm shadow-xl border-b border-gray-100 transition-all duration-300 ${
             menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
