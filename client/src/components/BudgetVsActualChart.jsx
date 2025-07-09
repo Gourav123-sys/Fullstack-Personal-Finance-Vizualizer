@@ -31,6 +31,7 @@ export default function BudgetVsActualChart({
         .filter(
           (tx) =>
             tx.category &&
+            typeof tx.category === "object" &&
             tx.category._id === cat._id &&
             tx.date.startsWith(month)
         )

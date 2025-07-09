@@ -12,7 +12,12 @@ export default function CategoryPieChart({ transactions, categories }) {
   const data = categories
     .map((cat) => {
       const total = transactions
-        .filter((tx) => tx.category && tx.category._id === cat._id)
+        .filter(
+          (tx) =>
+            tx.category &&
+            typeof tx.category === "object" &&
+            tx.category._id === cat._id
+        )
         .reduce((sum, tx) => sum + tx.amount, 0);
       return { name: cat.name, value: total, color: cat.color };
     })
