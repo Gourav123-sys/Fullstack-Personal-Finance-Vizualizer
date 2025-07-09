@@ -61,7 +61,7 @@ function NavBar() {
           <span className="text-xl">{menuOpen ? "✖" : "☰"}</span>
         </button>
         {/* Desktop Nav - Right Side */}
-        <div className="hidden lg:flex items-center gap-x-8">
+        <div className="hidden lg:flex items-center gap-x-10 ml-12">
           {navLinks.map((link) => (
             <Link
               key={link.to}
