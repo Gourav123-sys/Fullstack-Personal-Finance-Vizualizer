@@ -6,12 +6,57 @@ A modern, full-stack web application for tracking personal expenses, setting bud
 ![MERN Stack](https://img.shields.io/badge/MERN-Stack-green?style=for-the-badge&logo=mongodb)
 ![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)
 
+---
+
+## 🚀 Deployment Instructions (Vercel + Render)
+
+### 1. **Deploy Backend (Render)**
+
+- Deploy the `server/` directory to [Render](https://render.com/).
+- Set environment variables in Render:
+  - `MONGODB_URI` (your MongoDB Atlas connection string)
+  - `PORT` (optional, default is 5000)
+- Note your Render backend URL (e.g., `https://fullstack-personal-finance-vizualizer.onrender.com`).
+- **CORS:**
+  - In `server/server.js`, add your deployed Vercel frontend URL to the `allowedOrigins` array.
+
+### 2. **Deploy Frontend (Vercel)**
+
+- Deploy the `client/` directory to [Vercel](https://vercel.com/).
+- In the Vercel dashboard, go to **Settings > Environment Variables** and add:
+  - **Key:** `VITE_API_URL`
+  - **Value:** _your Render backend URL_ (e.g., `https://fullstack-personal-finance-vizualizer.onrender.com`)
+- Redeploy your frontend after setting the environment variable.
+
+### 3. **API URLs in Code**
+
+- All API helpers use:
+  ```js
+  import.meta.env.VITE_API_URL ||
+    "https://fullstack-personal-finance-vizualizer.onrender.com";
+  ```
+- This ensures the frontend always talks to the correct backend in production.
+
+### 4. **Test Live**
+
+- Register, login, and use all features on your live site.
+- If you see CORS or 405 errors, double-check the above steps.
+
+---
+
 ## 🌟 Live Demo
 
 - **Frontend**: [https://personal-finance-visualizer.vercel.app](https://personal-finance-visualizer.vercel.app)
 - **Backend API**: [https://fullstack-personal-finance-vizualizer.onrender.com](https://fullstack-personal-finance-vizualizer.onrender.com)
 
 ## ✨ Features
+
+### 🔐 **User Authentication (NEW)**
+
+- **User Registration & Login** - Securely create an account and log in
+- **JWT-based Authentication** - All user data is private and protected
+- **Protected Routes** - Only logged-in users can access dashboard, transactions, budgets, and categories
+- **Logout** - Securely log out and clear session
 
 ### 📊 **Dashboard & Analytics**
 
@@ -158,7 +203,13 @@ personal-finance-visualizer/
 └── README.md              # Project documentation
 ```
 
-## 🔧 API Endpoints
+## �� API Endpoints
+
+### Authentication
+
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login and receive JWT
+- `GET /api/auth/me` - Get current user info (requires JWT)
 
 ### Transactions
 
@@ -200,10 +251,19 @@ personal-finance-visualizer/
 
 ## 🔒 Security Features
 
+- **JWT Authentication** - All finance data is user-specific and protected by JWT
 - **CORS Configuration** - Secure cross-origin requests
 - **Input Validation** - Server-side data validation
 - **Error Handling** - Comprehensive error management
 - **Environment Variables** - Secure configuration management
+
+## 🔑 Authentication Flow
+
+1. **Register**: Create a new account with name, email, and password.
+2. **Login**: Obtain a JWT token by logging in with email and password.
+3. **Protected API Calls**: All finance-related API requests require the JWT in the `Authorization` header.
+4. **Frontend Protection**: Only authenticated users can access dashboard, transactions, budgets, and categories. Unauthenticated users are redirected to login/landing.
+5. **Logout**: Clears the JWT and user session from the browser.
 
 ## 🚀 Deployment
 
@@ -220,7 +280,6 @@ personal-finance-visualizer/
 2. Set build command: `npm install`
 3. Set start command: `npm start`
 4. Add environment variables
-
 
 ## 🤝 Contributing
 

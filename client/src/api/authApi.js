@@ -1,4 +1,7 @@
-const API_URL = import.meta.env.VITE_API_URL || "/api/auth";
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://fullstack-personal-finance-vizualizer.onrender.com";
+const API_URL = `${BASE_URL}/api/auth`;
 
 export async function login(email, password) {
   const res = await fetch(`${API_URL}/login`, {
