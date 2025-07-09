@@ -39,15 +39,15 @@ function NavBar() {
   ];
   return (
     <nav className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm shadow-lg border-b border-gray-100 mb-8">
-      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between min-w-0">
         {/* App Name - Left Side */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 min-w-0">
           <Link
             to="/"
-            className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tight hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2"
+            className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tight hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 min-w-0"
           >
             <span className="text-2xl">💼</span>
-            Personal Finance Visualizer
+            <span className="truncate">Personal Finance Visualizer</span>
           </Link>
         </div>
         {/* Mobile Menu Button */}
@@ -61,88 +61,91 @@ function NavBar() {
           <span className="text-xl">{menuOpen ? "✖" : "☰"}</span>
         </button>
         {/* Desktop Navigation - Right Side */}
-        <div className="hidden md:flex items-center space-x-2">
+        <div className="hidden md:flex items-center min-w-0 gap-2 flex-nowrap">
           {user ? (
             <>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`transition-all duration-200 px-4 py-2 rounded-xl font-medium text-sm lg:text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-2 ${
-                    location.pathname === link.to
-                      ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border border-blue-200 shadow-sm"
-                      : "text-gray-700"
-                  }`}
-                >
-                  <span className="text-lg">{link.icon}</span>
-                  {link.label}
-                </Link>
-              ))}
-              {/* Account Dropdown - Desktop */}
-              <div className="relative ml-6">
-                <button
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm hover:shadow-lg transition-all min-w-[0] max-w-xs focus:outline-none"
-                  onClick={() => setUserMenuOpen((v) => !v)}
-                  aria-haspopup="true"
-                  aria-expanded={userMenuOpen}
-                >
-                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-xl font-bold">
-                    <FaUserCircle />
-                  </div>
-                  <span
-                    className="text-gray-900 font-semibold text-sm truncate max-w-[80px]"
-                    title={user.name}
+              <div className="flex items-center gap-2 min-w-0 flex-nowrap">
+                {navLinks.map((link, idx) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`transition-all duration-200 px-4 py-2 rounded-xl font-medium text-sm lg:text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-2 min-w-0 truncate ${
+                      location.pathname === link.to
+                        ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border border-blue-200 shadow-sm"
+                        : "text-gray-700"
+                    } ${idx === navLinks.length - 1 ? "mr-0" : ""}`}
+                    style={{ maxWidth: "120px" }}
                   >
-                    {user.name}
-                  </span>
-                  <FaChevronDown
-                    className={`text-gray-500 text-base transition-transform ${
-                      userMenuOpen ? "rotate-180" : "rotate-0"
-                    }`}
-                  />
-                </button>
-                {userMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-blue-100 z-50 animate-fade-in-up">
-                    <div className="flex flex-col items-center gap-2 p-5">
-                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-3xl font-bold mb-2">
-                        <FaUserCircle />
-                      </div>
-                      <span
-                        className="text-gray-900 font-semibold text-lg truncate w-full text-center"
-                        title={user.name}
-                      >
-                        {user.name}
-                      </span>
-                      <span
-                        className="text-xs text-gray-500 truncate w-full text-center"
-                        title={user.email}
-                      >
-                        {user.email}
-                      </span>
-                      <button
-                        onClick={logout}
-                        className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-sm shadow-sm w-full justify-center"
-                        title="Logout"
-                      >
-                        <FaSignOutAlt className="text-base" />
-                        <span>Logout</span>
-                      </button>
+                    <span className="text-lg">{link.icon}</span>
+                    <span className="truncate">{link.label}</span>
+                  </Link>
+                ))}
+                {/* Account Dropdown - Desktop */}
+                <div className="relative ml-2 min-w-0">
+                  <button
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm hover:shadow-lg transition-all min-w-0 max-w-xs focus:outline-none"
+                    onClick={() => setUserMenuOpen((v) => !v)}
+                    aria-haspopup="true"
+                    aria-expanded={userMenuOpen}
+                  >
+                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-xl font-bold">
+                      <FaUserCircle />
                     </div>
-                  </div>
-                )}
+                    <span
+                      className="text-gray-900 font-semibold text-sm truncate max-w-[80px]"
+                      title={user.name}
+                    >
+                      {user.name}
+                    </span>
+                    <FaChevronDown
+                      className={`text-gray-500 text-base transition-transform ${
+                        userMenuOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                    />
+                  </button>
+                  {userMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-blue-100 z-50 animate-fade-in-up min-w-0">
+                      <div className="flex flex-col items-center gap-2 p-5 min-w-0">
+                        <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-3xl font-bold mb-2">
+                          <FaUserCircle />
+                        </div>
+                        <span
+                          className="text-gray-900 font-semibold text-lg truncate w-full text-center"
+                          title={user.name}
+                        >
+                          {user.name}
+                        </span>
+                        <span
+                          className="text-xs text-gray-500 truncate w-full text-center"
+                          title={user.email}
+                        >
+                          {user.email}
+                        </span>
+                        <button
+                          onClick={logout}
+                          className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-sm shadow-sm w-full justify-center"
+                          title="Logout"
+                        >
+                          <FaSignOutAlt className="text-base" />
+                          <span>Logout</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </>
           ) : (
             <>
               <Link
                 to="/login"
-                className="px-4 py-2 rounded-xl font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200"
+                className="px-4 py-2 rounded-xl font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200 min-w-0"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="ml-2 px-4 py-2 rounded-xl font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+                className="ml-2 px-4 py-2 rounded-xl font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 min-w-0"
               >
                 Register
               </Link>
@@ -155,14 +158,14 @@ function NavBar() {
             menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <div className="flex flex-col py-2">
+          <div className="flex flex-col py-2 gap-1">
             {user ? (
               <>
                 {navLinks.map((link) => (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`transition-all duration-200 px-4 py-3 font-medium text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-3 ${
+                    className={`transition-all duration-200 px-4 py-3 font-medium text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-3 min-w-0 truncate ${
                       location.pathname === link.to
                         ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-l-4 border-blue-600"
                         : "text-gray-700"
@@ -170,11 +173,11 @@ function NavBar() {
                     onClick={() => setMenuOpen(false)}
                   >
                     <span className="text-xl">{link.icon}</span>
-                    {link.label}
+                    <span className="truncate">{link.label}</span>
                   </Link>
                 ))}
                 {/* Account Card - Mobile */}
-                <div className="flex flex-col items-center gap-2 mt-4 px-4 py-3 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm w-full">
+                <div className="flex flex-col items-center gap-2 mt-4 px-4 py-3 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm w-full min-w-0">
                   <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow text-white text-2xl font-bold mb-1">
                     <FaUserCircle />
                   </div>
@@ -204,13 +207,13 @@ function NavBar() {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-3 font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200"
+                  className="px-4 py-3 font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200 min-w-0"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-3 font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+                  className="px-4 py-3 font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 min-w-0"
                 >
                   Register
                 </Link>
