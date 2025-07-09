@@ -17,6 +17,9 @@ function getCurrentMonth() {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 }
 
+// Helper: max height for budget tables
+const BUDGET_TABLE_MAX_HEIGHT = "320px";
+
 export default function BudgetsPage() {
   const [categories, setCategories] = useState([]);
   const [budgets, setBudgets] = useState([]);
@@ -146,17 +149,20 @@ export default function BudgetsPage() {
                     {monthKey}
                   </span>
                 </div>
-                <div className="overflow-x-auto">
+                <div
+                  className="overflow-x-auto"
+                  style={{ maxHeight: BUDGET_TABLE_MAX_HEIGHT }}
+                >
                   <table className="min-w-full bg-white rounded-xl">
                     <thead>
                       <tr className="bg-gradient-to-r from-blue-50 to-purple-50">
-                        <th className="px-4 py-2 text-left text-sm font-bold text-gray-700">
+                        <th className="px-4 py-2 text-left text-sm font-bold text-gray-700 align-middle">
                           Category
                         </th>
-                        <th className="px-4 py-2 text-left text-sm font-bold text-gray-700">
+                        <th className="px-4 py-2 text-left text-sm font-bold text-gray-700 align-middle">
                           Amount
                         </th>
-                        <th className="px-4 py-2 text-sm font-bold text-gray-700">
+                        <th className="px-4 py-2 text-sm font-bold text-gray-700 align-middle w-36">
                           Actions
                         </th>
                       </tr>
@@ -167,7 +173,7 @@ export default function BudgetsPage() {
                           key={b._id}
                           className="border-b border-gray-100 hover:bg-blue-50 transition"
                         >
-                          <td className="px-4 py-2 flex items-center gap-2">
+                          <td className="px-4 py-2 flex items-center gap-2 align-middle">
                             <span
                               className="w-4 h-4 rounded-full border border-gray-300 inline-block"
                               style={{ background: b.category.color }}
@@ -176,7 +182,7 @@ export default function BudgetsPage() {
                               {b.category.name}
                             </span>
                           </td>
-                          <td className="px-4 py-2 font-bold text-blue-700 text-lg">
+                          <td className="px-4 py-2 font-bold text-blue-700 text-lg align-middle">
                             {editingBudget && editingBudget._id === b._id ? (
                               <input
                                 type="number"
@@ -189,38 +195,40 @@ export default function BudgetsPage() {
                               b.amount
                             )}
                           </td>
-                          <td className="px-4 py-2 flex gap-2">
-                            {editingBudget && editingBudget._id === b._id ? (
-                              <>
-                                <button
-                                  className="px-3 py-1 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-                                  onClick={handleUpdateBudget}
-                                >
-                                  Save
-                                </button>
-                                <button
-                                  className="px-3 py-1 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition"
-                                  onClick={() => setEditingBudget(null)}
-                                >
-                                  Cancel
-                                </button>
-                              </>
-                            ) : (
-                              <>
-                                <button
-                                  className="px-3 py-1 rounded bg-purple-100 text-purple-700 font-semibold hover:bg-purple-200 transition"
-                                  onClick={() => handleEditBudget(b)}
-                                >
-                                  Edit
-                                </button>
-                                <button
-                                  className="px-3 py-1 rounded bg-red-100 text-red-700 font-semibold hover:bg-red-200 transition"
-                                  onClick={() => setDeletingId(b._id)}
-                                >
-                                  Delete
-                                </button>
-                              </>
-                            )}
+                          <td className="px-4 py-2 align-middle">
+                            <div className="flex gap-2 justify-center items-center">
+                              {editingBudget && editingBudget._id === b._id ? (
+                                <>
+                                  <button
+                                    className="px-3 py-1 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+                                    onClick={handleUpdateBudget}
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    className="px-3 py-1 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition"
+                                    onClick={() => setEditingBudget(null)}
+                                  >
+                                    Cancel
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <button
+                                    className="px-3 py-1 rounded bg-purple-100 text-purple-700 font-semibold hover:bg-purple-200 transition"
+                                    onClick={() => handleEditBudget(b)}
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    className="px-3 py-1 rounded bg-red-100 text-red-700 font-semibold hover:bg-red-200 transition"
+                                    onClick={() => setDeletingId(b._id)}
+                                  >
+                                    Delete
+                                  </button>
+                                </>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}
