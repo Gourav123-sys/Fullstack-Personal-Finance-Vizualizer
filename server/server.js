@@ -41,6 +41,9 @@ app.use("/api/categories", categoriesRouter);
 const budgetsRouter = require("./routes/budgets");
 app.use("/api/budgets", budgetsRouter);
 
+const { router: authRouter } = require("./routes/auth");
+app.use("/api/auth", authRouter);
+
 // Placeholder route
 app.get("/", (req, res) => res.send("API running"));
 

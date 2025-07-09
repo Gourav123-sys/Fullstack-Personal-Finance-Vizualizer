@@ -12,10 +12,23 @@ import DashboardPage from "./pages/DashboardPage";
 import TransactionsPage from "./pages/TransactionsPage";
 import BudgetsPage from "./pages/BudgetsPage";
 import CategoriesPage from "./pages/CategoriesPage";
+import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import { useAuth } from "./AuthContext";
+
+function RequireAuth({ children }) {
+  const { user, loading } = useAuth();
+  if (loading)
+    return <div className="text-center py-20 text-lg">Loading...</div>;
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+}
 
 function NavBar() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
   const navLinks = [
     { to: "/dashboard", label: "Dashboard", icon: "📊" },
     { to: "/transactions", label: "Transactions", icon: "💰" },
@@ -35,7 +48,6 @@ function NavBar() {
             Personal Finance Visualizer
           </Link>
         </div>
-
         {/* Mobile Menu Button */}
         <button
           className="md:hidden flex items-center px-3 py-2 border rounded-lg text-gray-700 border-gray-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
@@ -46,25 +58,51 @@ function NavBar() {
         >
           <span className="text-xl">{menuOpen ? "✖" : "☰"}</span>
         </button>
-
         {/* Desktop Navigation - Right Side */}
         <div className="hidden md:flex items-center space-x-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`transition-all duration-200 px-4 py-2 rounded-xl font-medium text-sm lg:text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-2 ${
-                location.pathname === link.to
-                  ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border border-blue-200 shadow-sm"
-                  : "text-gray-700"
-              }`}
-            >
-              <span className="text-lg">{link.icon}</span>
-              {link.label}
-            </Link>
-          ))}
+          {user ? (
+            <>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`transition-all duration-200 px-4 py-2 rounded-xl font-medium text-sm lg:text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-2 ${
+                    location.pathname === link.to
+                      ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border border-blue-200 shadow-sm"
+                      : "text-gray-700"
+                  }`}
+                >
+                  <span className="text-lg">{link.icon}</span>
+                  {link.label}
+                </Link>
+              ))}
+              <span className="ml-4 text-gray-700 font-semibold">
+                {user.name}
+              </span>
+              <button
+                onClick={logout}
+                className="ml-2 px-4 py-2 rounded-xl bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all duration-200"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-xl font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="ml-2 px-4 py-2 rounded-xl font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
-
         {/* Mobile Navigation Menu */}
         <div
           className={`md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-sm shadow-xl border-b border-gray-100 transition-all duration-300 ${
@@ -72,21 +110,49 @@ function NavBar() {
           }`}
         >
           <div className="flex flex-col py-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`transition-all duration-200 px-4 py-3 font-medium text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-3 ${
-                  location.pathname === link.to
-                    ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-l-4 border-blue-600"
-                    : "text-gray-700"
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                <span className="text-xl">{link.icon}</span>
-                {link.label}
-              </Link>
-            ))}
+            {user ? (
+              <>
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`transition-all duration-200 px-4 py-3 font-medium text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-3 ${
+                      location.pathname === link.to
+                        ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-l-4 border-blue-600"
+                        : "text-gray-700"
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span className="text-xl">{link.icon}</span>
+                    {link.label}
+                  </Link>
+                ))}
+                <span className="ml-4 text-gray-700 font-semibold">
+                  {user.name}
+                </span>
+                <button
+                  onClick={logout}
+                  className="ml-2 px-4 py-2 rounded-xl bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all duration-200"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="px-4 py-3 font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-4 py-3 font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -147,11 +213,42 @@ function App() {
         <NavBar />
         <main className="flex-1 max-w-6xl mx-auto px-4 w-full">
           <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/transactions" element={<TransactionsPage />} />
-            <Route path="/budgets" element={<BudgetsPage />} />
-            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <RequireAuth>
+                  <DashboardPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/transactions"
+              element={
+                <RequireAuth>
+                  <TransactionsPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/budgets"
+              element={
+                <RequireAuth>
+                  <BudgetsPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/categories"
+              element={
+                <RequireAuth>
+                  <CategoriesPage />
+                </RequireAuth>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
         <Footer />
