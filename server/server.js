@@ -10,17 +10,8 @@ const allowedOrigins = [
   "https://fullstack-personal-finance-vizualiz.vercel.app",
 ];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, etc.)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-  })
-);
+// TEMP: Allow all origins for debugging CORS
+app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
