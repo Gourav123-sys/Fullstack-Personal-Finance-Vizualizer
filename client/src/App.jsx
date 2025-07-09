@@ -52,7 +52,7 @@ function NavBar() {
         </div>
         {/* Mobile Menu Button */}
         <button
-          className="max-[1100px]:flex hidden items-center px-3 py-2 border rounded-lg text-gray-700 border-gray-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+          className="lg:hidden flex items-center px-3 py-2 border rounded-lg text-gray-700 border-gray-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={
             menuOpen ? "Close navigation menu" : "Open navigation menu"
@@ -61,20 +61,19 @@ function NavBar() {
           <span className="text-xl">{menuOpen ? "✖" : "☰"}</span>
         </button>
         {/* Desktop Navigation - Right Side */}
-        <div className="hidden max-[1100px]:flex max-[1100px]:hidden items-center min-w-0 gap-2 flex-nowrap">
+        <div className="hidden lg:flex items-center min-w-0 gap-2 flex-nowrap bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100 shadow-lg px-2 py-1 ml-4 overflow-x-auto scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
           {user ? (
             <>
-              <div className="flex items-center gap-2 min-w-0 flex-nowrap">
-                {navLinks.map((link, idx) => (
+              <div className="flex items-center gap-2 min-w-0 flex-nowrap overflow-x-auto scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
+                {navLinks.map((link) => (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`transition-all duration-200 px-4 py-2 rounded-xl font-medium text-sm lg:text-base hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-2 min-w-0 truncate ${
+                    className={`transition-all duration-200 px-4 py-2 rounded-xl font-medium text-base hover:bg-gradient-to-r hover:from-blue-100 hover:to-purple-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 flex items-center gap-2 min-w-0 truncate ${
                       location.pathname === link.to
-                        ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border border-blue-200 shadow-sm"
+                        ? "bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 border border-blue-200 shadow-sm"
                         : "text-gray-700"
-                    } ${idx === navLinks.length - 1 ? "mr-0" : ""}`}
-                    style={{ maxWidth: "120px" }}
+                    }`}
                   >
                     <span className="text-lg">{link.icon}</span>
                     <span className="truncate">{link.label}</span>
@@ -154,7 +153,7 @@ function NavBar() {
         </div>
         {/* Mobile Navigation Menu */}
         <div
-          className={`max-[1100px]:block hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-sm shadow-xl border-b border-gray-100 transition-all duration-300 ${
+          className={`lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-sm shadow-xl border-b border-gray-100 transition-all duration-300 ${
             menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
