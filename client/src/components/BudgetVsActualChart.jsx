@@ -37,7 +37,12 @@ export default function BudgetVsActualChart({
         )
         .reduce((sum, tx) => sum + tx.amount, 0);
       const budget =
-        budgets.find((b) => b.category._id === cat._id)?.amount || 0;
+        budgets.find(
+          (b) =>
+            b.category &&
+            typeof b.category === "object" &&
+            b.category._id === cat._id
+        )?.amount || 0;
       return { name: cat.name, budget, actual: total };
     })
     .filter((d) => d.budget > 0 || d.actual > 0);
