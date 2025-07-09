@@ -30,6 +30,13 @@ export default function TransactionForm({
     }
     setError("");
     onSubmit({ amount: Number(amount), date, description, category });
+    // If not editing, reset fields after add
+    if (!initialData || Object.keys(initialData).length === 0) {
+      setAmount("");
+      setDate("");
+      setDescription("");
+      setCategory("");
+    }
   };
 
   return (
