@@ -62,10 +62,9 @@ function NavBar() {
         </button>
         {/* Desktop Navigation - Right Side */}
         <div className="hidden lg:flex items-center min-w-0 gap-2 flex-nowrap bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100 shadow-lg px-2 py-1 ml-4 overflow-x-auto scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
-          {user ? (
-            <>
-              <div className="flex items-center gap-2 min-w-0 flex-nowrap overflow-x-auto scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
-                {navLinks.map((link) => (
+          {user
+            ? [
+                ...navLinks.map((link) => (
                   <Link
                     key={link.to}
                     to={link.to}
@@ -78,9 +77,9 @@ function NavBar() {
                     <span className="text-lg">{link.icon}</span>
                     <span className="truncate">{link.label}</span>
                   </Link>
-                ))}
-                {/* Account Dropdown - Desktop */}
-                <div className="relative ml-2 min-w-0">
+                )),
+                // User Dropdown as a sibling
+                <div className="relative ml-2 min-w-0" key="user-dropdown">
                   <button
                     className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 shadow-sm hover:shadow-lg transition-all min-w-0 max-w-xs focus:outline-none"
                     onClick={() => setUserMenuOpen((v) => !v)}
@@ -131,25 +130,24 @@ function NavBar() {
                       </div>
                     </div>
                   )}
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                className="px-4 py-2 rounded-xl font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200 min-w-0"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="ml-2 px-4 py-2 rounded-xl font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 min-w-0"
-              >
-                Register
-              </Link>
-            </>
-          )}
+                </div>,
+              ]
+            : [
+                <Link
+                  to="/login"
+                  className="px-4 py-2 rounded-xl font-medium text-blue-600 border-2 border-blue-500 hover:bg-blue-50 transition-all duration-200 min-w-0"
+                  key="login"
+                >
+                  Login
+                </Link>,
+                <Link
+                  to="/register"
+                  className="ml-2 px-4 py-2 rounded-xl font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 min-w-0"
+                  key="register"
+                >
+                  Register
+                </Link>,
+              ]}
         </div>
         {/* Mobile Navigation Menu */}
         <div
