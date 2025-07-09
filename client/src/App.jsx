@@ -16,6 +16,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { useAuth } from "./AuthContext";
+import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 
 function RequireAuth({ children }) {
   const { user, loading } = useAuth();
@@ -76,15 +77,21 @@ function NavBar() {
                   {link.label}
                 </Link>
               ))}
-              <span className="ml-4 text-gray-700 font-semibold">
-                {user.name}
-              </span>
-              <button
-                onClick={logout}
-                className="ml-2 px-4 py-2 rounded-xl bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all duration-200"
-              >
-                Logout
-              </button>
+              {/* Account Preview */}
+              <div className="flex items-center gap-2 ml-6 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 shadow-sm hover:shadow-lg transition-all">
+                <FaUserCircle className="text-2xl text-blue-500" />
+                <span className="text-gray-800 font-semibold max-w-[120px] truncate">
+                  {user.name}
+                </span>
+                <button
+                  onClick={logout}
+                  className="ml-2 flex items-center gap-1 px-3 py-1 rounded-lg bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-sm"
+                  title="Logout"
+                >
+                  <FaSignOutAlt className="text-base" />
+                  <span className="hidden sm:inline">Logout</span>
+                </button>
+              </div>
             </>
           ) : (
             <>
@@ -127,15 +134,21 @@ function NavBar() {
                     {link.label}
                   </Link>
                 ))}
-                <span className="ml-4 text-gray-700 font-semibold">
-                  {user.name}
-                </span>
-                <button
-                  onClick={logout}
-                  className="ml-2 px-4 py-2 rounded-xl bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all duration-200"
-                >
-                  Logout
-                </button>
+                {/* Account Preview Mobile */}
+                <div className="flex items-center gap-2 mt-4 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 shadow-sm">
+                  <FaUserCircle className="text-2xl text-blue-500" />
+                  <span className="text-gray-800 font-semibold max-w-[120px] truncate">
+                    {user.name}
+                  </span>
+                  <button
+                    onClick={logout}
+                    className="ml-2 flex items-center gap-1 px-3 py-1 rounded-lg bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-all text-sm"
+                    title="Logout"
+                  >
+                    <FaSignOutAlt className="text-base" />
+                    <span className="inline">Logout</span>
+                  </button>
+                </div>
               </>
             ) : (
               <>
