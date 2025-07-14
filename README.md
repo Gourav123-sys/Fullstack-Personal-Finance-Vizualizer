@@ -47,7 +47,7 @@ A modern, full-stack web application for tracking personal expenses, setting bud
 
 ## 🌟 Live Demo
 
-- **Frontend**: [https://personal-finance-visualizer.vercel.app](https://personal-finance-visualizer.vercel.app)
+- **Frontend**: [https://personal-finance-visualizer.vercel.app](https://fullstack-personal-finance-vizualizer-gourav-mondals-projects.vercel.app/)
 - **Backend API**: [https://fullstack-personal-finance-vizualizer.onrender.com](https://fullstack-personal-finance-vizualizer.onrender.com)
 
 ## ✨ Features
